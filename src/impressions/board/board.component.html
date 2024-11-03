@@ -1,4 +1,9 @@
-<p>board works!</p>
-<impressions-note></impressions-note>
-<impressions-note></impressions-note>
-<impressions-note></impressions-note>
+<!--a dropzone-->
+<!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+<section dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)" class="board">
+
+
+    <impressions-note *ngFor="let n of notes" [note]="n"></impressions-note>
+
+
+</section>
