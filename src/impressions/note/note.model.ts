@@ -21,13 +21,4 @@ export class Note {
         this.posY = y ?? /*0*/  Math.random() * 400;
     }
 
-    getX() {
-        return this.posX + 'px';
-    }
-
-    getY() {
-        return this.posY + 'px';
-    }
-
-
 }

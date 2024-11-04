@@ -25,6 +25,8 @@
 // Then import Bootstrap
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins/breakpoints";
 
@@ -36,6 +38,7 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
     font-size: round(($size / 3) * 2) + px;
     line-height: $size + px;
 }
+
 
 .avatar {
     position: relative;
@@ -51,6 +54,7 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    border: 4px black solid;
 
     &.img-thumbnail {
         padding: 4px;
@@ -76,6 +80,5 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
         }
     }
 }
-
 
 

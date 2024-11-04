@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { randomUUID } from 'crypto';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { DndDropEvent, DndModule, EffectAllowed } from 'ngx-drag-drop';
+import { DndModule } from 'ngx-drag-drop';
 import { Note } from './note.model';
 
 @Component({
@@ -11,13 +10,18 @@ import { Note } from './note.model';
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss'
 })
-export class NoteComponent {
+export class NoteComponent  implements OnInit{
 
   @Input({required:true})
   note: Note = new Note();
 
-  x : string = this.note.getX();
-  y : string = this.note.getY();
+  @Output() 
+  dragItemEvent = new EventEmitter<Note>();
+
+  ngOnInit(): void {
+  
+
+  }
 
   onDragStart(event: DragEvent) {
 
@@ -27,9 +31,10 @@ export class NoteComponent {
   onDragEnd(event: DragEvent) {
 
     console.log("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
-    this.x = (event.pageX-50) + 'px';;
-    this.y = (event.pageY-50) + 'px';;
-    console.log(event.pageX + ', ' + event.pageY);
+    this.note.posX = (event.pageX-50);
+    this.note.posY = (event.pageY-50);
+    console.log(this.note.id + " dragged to " + event.pageX + ', ' + event.pageY);
+    this.dragItemEvent.emit(this.note);
   }
 
   onDraggableCopied(event: DragEvent) {
@@ -51,5 +56,4 @@ export class NoteComponent {
 
     console.log("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
   }
-
 }
