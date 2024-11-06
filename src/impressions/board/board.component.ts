@@ -5,11 +5,12 @@ import { Note } from '../note/note.model';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LocalService } from '../common/local.service';
+import { AddComponent } from "../add/add.component";
 
 @Component({
   selector: 'impressions-board',
   standalone: true,
-  imports: [NoteComponent, DndModule, NgFor, RouterLink],
+  imports: [NoteComponent, DndModule, NgFor, AddComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -43,7 +44,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.notes = new Map(this.localService.getData().map(obj => [obj.id, obj]));
+    this.loadNotes();
 
     //this.notes.push(new Note(200, 230));
 
@@ -83,5 +84,13 @@ export class BoardComponent implements OnInit {
     //return this.notes;
     console.log("getNoteValues(): " + this.notes.size);
     return Array.from(this.notes.values());
+  }
+
+  private loadNotes() {
+    this.notes = new Map(this.localService.getData().map(obj => [obj.id, obj]));
+  }
+
+  submitAdd($event: any) {
+    this.loadNotes();
   }
 }

@@ -15,6 +15,14 @@ export class LocalService {
 
   constructor() { }
 
+  public addData(noteToAdd: Note) {
+    console.log("addData: " + JSON.stringify(noteToAdd));
+    
+    let temp :Note[] = this.getData();
+    temp.push(noteToAdd);
+    this.saveData(temp);
+  }
+
   public saveData(value: Note[]) {
     console.log("saving: " + JSON.stringify(value));
     localStorage.setItem(this.store_key, this.encrypt(JSON.stringify(value)));

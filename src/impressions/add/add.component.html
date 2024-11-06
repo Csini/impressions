@@ -1,1 +1,43 @@
-<p>add works!</p>
+<div *ngIf="!inProgress" class="dropup position-absolute bottom-0 end-0 rounded-circle m-5">
+    <button type="button" class="btn btn-primary btn-lg" (click)="beginAdd()">
+        <i class="bi bi-plus"></i>
+        <span>Add</span>
+    </button>
+</div>
+
+
+<span
+    *ngIf="inProgress"
+     class="note position-absolute bottom-0 end-0"
+>
+    <div class="avatar avatar-64 bg-danger rounded-circle text"></div>
+        <div class="avatar-label-triangle-wrapper">
+            <div class="avatar-label-triangle"></div>
+        </div> 
+    <div class="avatar-label">
+        <!--form -->
+        <form [formGroup]="addForm" (ngSubmit)="submitForm()">
+            <input
+                type="text"
+                id="noteid"
+                name="noteid"
+                class="form-control"
+                required
+                minlength="4"
+                formControlName="noteid"
+            />
+            
+            <div
+                *ngIf="noteid?.invalid && (noteid?.dirty || noteid?.touched)"
+                class="text-danger"
+            >
+                <div *ngIf="noteid?.errors?.['required']">Name is required.</div>
+                <div *ngIf="noteid?.errors?.['minlength']">
+                Name must be at least 4 characters long.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</span>

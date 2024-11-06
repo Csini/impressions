@@ -6,10 +6,5 @@
     <impressions-note *ngFor="let n of getNoteValues()" [note]="n" (dragItemEvent)="dragItem($event)"></impressions-note>
 
 
+    <impressions-add (submitAddEvent)="submitAdd($event)"></impressions-add>
 </section>
-<div class="dropup position-absolute bottom-0 end-0 rounded-circle m-5">
-    <button type="button" class="btn btn-primary btn-lg" [routerLink]="'add'">
-        <i class="bi bi-plus"></i>
-        <span>Add</span>
-    </button>
-</div>
