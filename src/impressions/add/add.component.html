@@ -19,21 +19,21 @@
         <form [formGroup]="addForm" (ngSubmit)="submitForm()">
             <input
                 type="text"
-                id="noteid"
-                name="noteid"
+                id="notelabel"
+                name="notelabel"
                 class="form-control"
-                required
-                minlength="4"
-                formControlName="noteid"
+                minlength="1"
+                formControlName="notelabel"
+                #notelabelInput
+                (focusout)="onFocusOutEvent($event)"
             />
             
             <div
-                *ngIf="noteid?.invalid && (noteid?.dirty || noteid?.touched)"
+                *ngIf="notelabel?.invalid && (notelabel?.dirty || notelabel?.touched)"
                 class="text-danger"
             >
-                <div *ngIf="noteid?.errors?.['required']">Name is required.</div>
-                <div *ngIf="noteid?.errors?.['minlength']">
-                Name must be at least 4 characters long.
+                <div *ngIf="notelabel?.errors?.['minlength']">
+                Label must be at least 1 characters long.
                 </div>
             </div>
 

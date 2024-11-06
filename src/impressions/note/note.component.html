@@ -1,7 +1,7 @@
 <span class="note"
      [dndDraggable]="note.id"
-     [dndEffectAllowed]="note.effectAllowed"
-     [dndDisableIf]="note.disable"
+     [dndEffectAllowed]="effectAllowed"
+     [dndDisableIf]="disable"
      (dndStart)="onDragStart($event)"
      (dndCopied)="onDraggableCopied($event)"
      (dndLinked)="onDraggableLinked($event)"
@@ -15,5 +15,5 @@
         <div class="avatar-label-triangle-wrapper">
             <div class="avatar-label-triangle"></div>
         </div> 
-    <div class="avatar-label">Impression ({{note.id}})</div>
+    <div class="avatar-label">Impression ({{note.label}})</div>
 </span>

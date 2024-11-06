@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, FormsModule, NgModelGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LocalService } from '../common/local.service';
@@ -18,39 +18,51 @@ export class AddComponent implements OnInit {
 
   addForm!: FormGroup;
 
-  @Output() 
+  @Output()
   submitAddEvent = new EventEmitter();
 
-  constructor(private localService: LocalService) {
+  @ViewChild('notelabelInput')
+  notelabelInput!: ElementRef;
+
+  constructor(private localService: LocalService, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.addForm = new FormGroup({
-      noteid: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
+      notelabel: new FormControl('', [
+        Validators.minLength(1),
       ]),
     });
   }
 
-  get noteid() {
-    return this.addForm.get('noteid');
+  get notelabel() {
+    return this.addForm.get('notelabel');
   }
 
   beginAdd() {
     console.log('beginAdd');
     this.inProgress = true;
+    this.changeDetector.detectChanges();
+    this.notelabelInput.nativeElement.focus();
   }
 
   submitForm() {
-    if(!this.addForm.valid){
-      this.noteid?.markAsTouched();
+    if (!this.addForm.valid) {
+      this.notelabel?.markAsTouched();
       return;
     }
     console.log('submitForm');
-    let note : Note = new Note(this.noteid?.value);
+    let note: Note = new Note(this.notelabel?.value);
     this.localService.addData(note);
     this.inProgress = false;
     this.submitAddEvent.emit();
+    this.notelabel?.setValue('');
+    this.addForm.reset();
+  }
+
+  onFocusOutEvent($event: FocusEvent) {
+    if (this.notelabel?.value === '') {
+      this.inProgress = false;
+    }
   }
 }

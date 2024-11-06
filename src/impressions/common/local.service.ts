@@ -31,7 +31,10 @@ export class LocalService {
   public getData(): Note[] {
     let data: string = localStorage.getItem(this.store_key) || "";
     let temp = this.decrypt(data);
-    //console.log(temp);
+    console.log(temp);
+    if(temp===''){
+      temp = "[]";
+    }
     let decypted: Note[] = JSON.parse(temp);
     return decypted;
   }
