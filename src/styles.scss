@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+// Functions first
+@import "../node_modules/bootstrap/scss/functions";
+
+// Variable overrides second
+//$primary: #900;
+//$enable-shadows: true;
+//$prefix: "mo-";
+
+// Required Bootstrap imports
+//@import "../node_modules/bootstrap/scss/variables";
+//@import "../node_modules/bootstrap/scss/variables-dark";
+//@import "../node_modules/bootstrap/scss/maps";
+//@import "../node_modules/bootstrap/scss/mixins";
+//@import "../node_modules/bootstrap/scss/root";
+
+// Optional components
+//@import "../node_modules/bootstrap/scss/utilities";
+//@import "../node_modules/bootstrap/scss/reboot";
+//@import "../node_modules/bootstrap/scss/containers";
+//@import "../node_modules/bootstrap/scss/grid";
+//@import "../node_modules/bootstrap/scss/helpers";
+//@import "../node_modules/bootstrap/scss/utilities/api";
+
+// Then import Bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins/breakpoints";
+
+$avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
+
+@mixin avatar($size) {
+    height: $size + px;
+    width: $size + px;
+    font-size: round(($size / 3) * 2) + px;
+    line-height: $size + px;
+}
+
+
+.avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 4px black solid;
+
+    &.img-thumbnail {
+        padding: 4px;
+        max-width: none;
+    }
+
+    & > * {
+        height: 100%;
+        width: 100%;
+    }
+
+    @include avatar(32);
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        @each $size in $avatar-sizes {
+            .avatar#{$infix}-#{$size} {
+                @include avatar($size);
+            }
+        }
+    }
+}
+
+

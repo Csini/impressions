@@ -1,0 +1,10 @@
+<!--a dropzone-->
+<!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+<section dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)" class="board">
+
+
+    <impressions-note *ngFor="let n of getNoteValues()" [note]="n" (dragItemEvent)="dragItem($event)"></impressions-note>
+
+
+    <impressions-add (submitAddEvent)="submitAdd($event)"></impressions-add>
+</section>

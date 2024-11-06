@@ -1,0 +1,19 @@
+<span class="note"
+     [dndDraggable]="note.id"
+     [dndEffectAllowed]="effectAllowed"
+     [dndDisableIf]="disable"
+     (dndStart)="onDragStart($event)"
+     (dndCopied)="onDraggableCopied($event)"
+     (dndLinked)="onDraggableLinked($event)"
+     (dndMoved)="onDraggableMoved($event)"
+     (dndCanceled)="onDragCanceled($event)"
+     (dndEnd)="onDragEnd($event)"
+     [style.left]="note.posX + 'px'"
+     [style.top]="note.posY + 'px'"
+>
+    <div class="avatar avatar-64 bg-danger rounded-circle text"></div>
+        <div class="avatar-label-triangle-wrapper">
+            <div class="avatar-label-triangle"></div>
+        </div> 
+    <div class="avatar-label">Impression ({{note.label}})</div>
+</span>
