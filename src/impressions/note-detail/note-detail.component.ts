@@ -37,6 +37,7 @@ export class NoteDetailComponent implements OnInit {
     console.log('NoteDetailComponent: ' + this.id);
 
     this.noteDetailForm = new FormGroup({
+      label: new FormControl(this.id),
       newRow: new FormControl(''),
       rows: this.fb.array([]),
     });
@@ -51,7 +52,7 @@ export class NoteDetailComponent implements OnInit {
     return this.noteDetailForm.get("rows") as FormArray
   }
 
-  rowValue (index: number): string {
+  rowValue(index: number): string {
     return this.rows.at(index).value.row;
   }
 
@@ -59,21 +60,25 @@ export class NoteDetailComponent implements OnInit {
     return this.noteDetailForm.get('newRow') as FormControl;
   }
 
-  onFocusOutRowEvent($event: FocusEvent, index: number) {
+  get label(): FormControl {
+    return this.noteDetailForm.get('label') as FormControl;
+  }
+
+  onFocusOutRowEvent($event: Event, index: number) {
     console.log("onFocusOutRowEvent[" + JSON.stringify($event) + ", " + index + "]");
 
-    let newValue : string = this.rowValue(index);
+    let newValue: string = this.rowValue(index);
     console.log("newValue:" + newValue);
 
     this.note.rows[index] = newValue;
 
-    this.note.rows =  this.note.rows.filter(function(e){return e});
+    this.note.rows = this.note.rows.filter(function (e) { return e });
 
     this.localService.changeData(this.note);
     this.reloadNote();
   }
 
-  onFocusOutNewRowEvent($event: FocusEvent) {
+  onFocusOutNewRowEvent($event: Event) {
     console.log("onFocusOutNewRowEvent[" + this.newRow?.value + "]")
     if (this.newRow?.value && this.newRow?.value != '') {
       this.note.rows.push(this.newRow?.value);
@@ -86,10 +91,20 @@ export class NoteDetailComponent implements OnInit {
     }
   }
 
+  onFocusOutLabelEvent($event: Event) {
+    console.log("onFocusOutLabelEvent[" + $event + "]")
+    this.note.label = this.label.value;
+
+    this.localService.changeData(this.note);
+    this.reloadNote()
+  }
+
   deleteRow(index: number) {
+
+    console.log("deleteRow[" + index + "]")
     this.note.rows[index] = '';
 
-    this.note.rows =  this.note.rows.filter(function(e){return e});
+    this.note.rows = this.note.rows.filter(function (e) { return e });
 
     this.localService.changeData(this.note);
     this.reloadNote();
@@ -97,7 +112,8 @@ export class NoteDetailComponent implements OnInit {
 
   reloadNote() {
     this.note = this.localService.findData(this.id);
-    let counter: number = 0;
+
+    this.label.setValue(this.note.label);
 
     this.rows.clear();
 
@@ -118,16 +134,16 @@ export class NoteDetailComponent implements OnInit {
 
     console.log("dropped", JSON.stringify(event, null, 2), index);
 
-    let temp : string = this.note.rows[event.data];
+    let temp: string = this.note.rows[event.data];
 
     this.note.rows[event.data] = '';
 
     this.note.rows.splice(index, 0, temp);
-    this.note.rows =  this.note.rows.filter(function(e){return e});
+    this.note.rows = this.note.rows.filter(function (e) { return e });
 
     this.localService.changeData(this.note);
     this.reloadNote();
-  
+
   }
 
   onDragStart(event: DragEvent) {
@@ -162,6 +178,8 @@ export class NoteDetailComponent implements OnInit {
 
   submitForm() {
     //do nothing
+
+    console.log("submitForm");
   }
 
 }

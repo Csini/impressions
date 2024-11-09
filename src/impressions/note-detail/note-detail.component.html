@@ -5,8 +5,14 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <div class="avatar avatar-64 bg-danger rounded-circle text" ></div>
-
-        <h1>{{note.label}}</h1>
+        <input  
+          class="h1" 
+          id="label"
+          name="label"
+          formControlName="label"
+          (focusout)="onFocusOutLabelEvent($event)"
+          (keyup.enter)="onFocusOutLabelEvent($event)"
+        />
       </div>
       <a class="btn btn-primary" [routerLink]="['/board']" role="button">Back</a>
     </div>
@@ -31,7 +37,8 @@
         <input 
           class="h2"  
           formControlName="row"
-          (focusout)="onFocusOutRowEvent($event, i)"/>
+          (focusout)="onFocusOutRowEvent($event, i)"
+          (keyup.enter)="onFocusOutRowEvent($event, i)"/>
       </div>
       <i class="bi bi-x-lg clickcursor" (click)="deleteRow(i)"></i>
     </li>
@@ -47,6 +54,7 @@
           name="newRow"
           formControlName="newRow"
           (focusout)="onFocusOutNewRowEvent($event)"
+          (keyup.enter)="onFocusOutNewRowEvent($event)"
         />
       </div>
       <i class="bi bi-x-lg clickcursor icon-hide"></i>
