@@ -1,3 +1,17 @@
 .d-flex {
     gap: 20px;
 }
+
+input {
+    border-color: transparent;
+    outline: none;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.li-add {
+    border-top-color: transparent;
+}
