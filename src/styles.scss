@@ -39,6 +39,13 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
     line-height: $size + px;
 }
 
+.dragcursor{
+    cursor: -webkit-grab; cursor: grab;
+}
+
+.clickcursor{
+    cursor: pointer;
+}
 
 .avatar {
     position: relative;
@@ -55,7 +62,6 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     border: 4px black solid;
-    cursor: -webkit-grab; cursor: grab;
 
     &.img-thumbnail {
         padding: 4px;

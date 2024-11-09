@@ -5,11 +5,12 @@ import { Note } from '../note/note.model';
 import { JsonPipe, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DndDropEvent, DndModule, EffectAllowed } from 'ngx-drag-drop';
 
 @Component({
   selector: 'impressions-note-detail',
   standalone: true,
-  imports: [RouterLink, NgFor, ReactiveFormsModule, JsonPipe],
+  imports: [RouterLink, NgFor, ReactiveFormsModule, JsonPipe, DndModule],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss'
 })
@@ -24,6 +25,11 @@ export class NoteDetailComponent implements OnInit {
   @ViewChild('newRowInput')
   newRowInput!: ElementRef;
 
+  effectAllowed: EffectAllowed = 'all';
+
+  disable = false;
+  handle = false;
+
   constructor(private localService: LocalService, private changeDetector: ChangeDetectorRef, private fb: FormBuilder) {
   }
 
@@ -36,6 +42,9 @@ export class NoteDetailComponent implements OnInit {
     });
 
     this.reloadNote();
+
+    this.changeDetector.detectChanges();
+    this.newRowInput.nativeElement.focus();
   }
 
   get rows(): FormArray {
@@ -58,6 +67,8 @@ export class NoteDetailComponent implements OnInit {
 
     this.note.rows[index] = newValue;
 
+    this.note.rows =  this.note.rows.filter(function(e){return e});
+
     this.localService.changeData(this.note);
     this.reloadNote();
   }
@@ -69,7 +80,19 @@ export class NoteDetailComponent implements OnInit {
       this.localService.changeData(this.note);
       this.reloadNote();
       this.newRow?.setValue('');
+
+      this.changeDetector.detectChanges();
+      this.newRowInput.nativeElement.focus();
     }
+  }
+
+  deleteRow(index: number) {
+    this.note.rows[index] = '';
+
+    this.note.rows =  this.note.rows.filter(function(e){return e});
+
+    this.localService.changeData(this.note);
+    this.reloadNote();
   }
 
   reloadNote() {
@@ -85,13 +108,60 @@ export class NoteDetailComponent implements OnInit {
       this.rows.push(group);
     }
     );
-
-    this.changeDetector.detectChanges();
-    this.newRowInput.nativeElement.focus();
   }
 
+  onDragover(event: DragEvent, index: number) {
+    console.log("dragover", JSON.stringify(event, null, 2), index);
+  }
+
+  onDrop(event: DndDropEvent, index: number) {
+
+    console.log("dropped", JSON.stringify(event, null, 2), index);
+
+    let temp : string = this.note.rows[event.data];
+
+    this.note.rows[event.data] = '';
+
+    this.note.rows.splice(index, 0, temp);
+    this.note.rows =  this.note.rows.filter(function(e){return e});
+
+    this.localService.changeData(this.note);
+    this.reloadNote();
+  
+  }
+
+  onDragStart(event: DragEvent) {
+
+    console.log("drag started: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  onDragEnd(event: DragEvent) {
+    console.log("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  onDraggableCopied(event: DragEvent) {
+
+    console.log("draggable copied: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  onDraggableLinked(event: DragEvent) {
+
+    console.log("draggable linked: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  onDraggableMoved(event: DragEvent) {
+
+    console.log("draggable moved: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  onDragCanceled(event: DragEvent) {
+
+    console.log("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+
   submitForm() {
-    throw new Error('Method not implemented.');
+    //do nothing
   }
 
 }

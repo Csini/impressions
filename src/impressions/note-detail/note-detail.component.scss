@@ -15,3 +15,12 @@ input:focus {
 .li-add {
     border-top-color: transparent;
 }
+
+.dragging{
+    cursor: -webkit-grabbing; cursor: grabbing;
+    //background-color: green;
+}
+
+.icon-hide {
+    color: transparent;
+}

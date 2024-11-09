@@ -12,30 +12,44 @@
     </div>
   </div>
   <ul class="list-group list-group-light">
-    <li *ngFor="let row of rows.controls; let i=index" class="list-group-item" formArrayName="rows">
-      <div [formGroupName]="i" class="d-flex justify-content-between align-items-center">
-        <div></div>
+    <li *ngFor="let row of rows.controls; let i=index" class="list-group-item d-flex" 
+    formArrayName="rows"
+    [dndDraggable]="i"
+    [dndEffectAllowed]="effectAllowed"
+    [dndDisableIf]="disable"
+    (dndStart)="onDragStart($event)"
+    (dndCopied)="onDraggableCopied($event)"
+    (dndLinked)="onDraggableLinked($event)"
+    (dndMoved)="onDraggableMoved($event)"
+    (dndCanceled)="onDragCanceled($event)"
+    (dndEnd)="onDragEnd($event)"
+    [dndDraggingClass]="'dragging'"
+    dndDropzone (dndDragover)="onDragover($event, i)" (dndDrop)="onDrop($event, i)"
+    >
+      <div [formGroupName]="i" class="d-flex align-items-center flex-fill">
+        <i class="bi bi-grip-vertical dragcursor"></i>
         <input 
           class="h2"  
           formControlName="row"
           (focusout)="onFocusOutRowEvent($event, i)"/>
       </div>
+      <i class="bi bi-x-lg clickcursor" (click)="deleteRow(i)"></i>
     </li>
   </ul>
-  <ul class="list-group list-group-light mb-4">
-    <li class="li-add list-group-item">
-      <div class="d-flex justify-content-between align-items-center">
-        <div></div>
+  <ul class="list-group list-group-light">
+    <li class="li-add list-group-item d-flex">
+      <div class="d-flex align-items-center flex-fill">
+        <i class="bi bi-grip-vertical dragcursor icon-hide"></i>
         <input 
           #newRowInput 
           class="h2" 
           id="newRow"
           name="newRow"
-          class="form-control"
           formControlName="newRow"
           (focusout)="onFocusOutNewRowEvent($event)"
         />
       </div>
+      <i class="bi bi-x-lg clickcursor icon-hide"></i>
     </li>
   </ul>
 </form>
