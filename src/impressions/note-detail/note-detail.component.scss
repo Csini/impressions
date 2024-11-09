@@ -1,0 +1,27 @@
+.d-flex {
+    gap: 20px;
+}
+
+input {
+    border-color: transparent;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+.li-add {
+    border-top-color: transparent;
+}
+
+.dragging{
+    cursor: -webkit-grabbing; cursor: grabbing;
+    //background-color: green;
+}
+
+.icon-hide {
+    color: transparent;
+}

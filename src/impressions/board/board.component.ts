@@ -16,30 +16,10 @@ import { AddComponent } from "../add/add.component";
 })
 export class BoardComponent implements OnInit {
 
-  notes: Map<String, Note> = new Map<String, Note>();
+  notes: Note[] = [];
 
   constructor(private localService: LocalService) {
 
-    // TODO
-    /*
-    if(this.notes.size==0){
-
-      
-      this.addNote(new Note());
-      this.addNote(new Note("Third"));
-      this.addNote(new Note("Full", 120, 450));
-      
-      
-      console.log("hmmmm: " + this.notes)
-      this.localService.saveData(Array.from(this.notes.values()));
-      
-     
-    }
-      */
-  }
-
-  addNote(note: Note) {
-    this.notes.set(note.id, note);
   }
 
   ngOnInit(): void {
@@ -51,6 +31,8 @@ export class BoardComponent implements OnInit {
     //this.notes.push(new Note());
     //this.notes.push(new Note("Third"));
     //this.notes.push(new Note("Full", 120, 450));
+    //this.localService.saveData(Array.from(this.notesIntern.values()));
+    //this.loadNotes();
   }
 
   onDragover(event: DragEvent) {
@@ -74,20 +56,12 @@ export class BoardComponent implements OnInit {
 
   dragItem(item: Note) {
     console.log("dragItem: " + JSON.stringify(item));
-    this.notes.set(item.id, item);
-    //console.log(this.notes);
-    this.localService.saveData(Array.from(this.notes.values()));
-  }
-
-  getNoteValues(): Array<Note> {
-    //return Array.from(this.shared_position.values());
-    //return this.notes;
-    console.log("getNoteValues(): " + this.notes.size);
-    return Array.from(this.notes.values());
+    this.localService.changeData(item);
+    this.loadNotes();
   }
 
   private loadNotes() {
-    this.notes = new Map(this.localService.getData().map(obj => [obj.id, obj]));
+    this.notes = this.localService.getData();
   }
 
   submitAdd($event: any) {
