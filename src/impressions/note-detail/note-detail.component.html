@@ -1,0 +1,20 @@
+<div class="bg-dark text-light p-2 border-top border-bottom">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <div class="avatar avatar-64 bg-danger rounded-circle text" ></div>
+
+      <h1>{{note.label}}</h1>
+    </div>
+    <a class="btn btn-link btn-rounded btn-sm" href="#" role="button">Back</a>
+  </div>
+</div>
+
+<ul class="list-group list-group-light mb-4">
+  <li *ngFor="let row of note.rows" class="list-group-item d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <div></div>
+      <h2>{{row}}</h2>
+    </div>
+  </li>
+</ul>

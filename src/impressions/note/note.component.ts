@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { DndModule, EffectAllowed } from 'ngx-drag-drop';
 import { Note } from './note.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'impressions-note',
   standalone: true,
-  imports: [DndModule],
+  imports: [DndModule, RouterLink],
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss'
 })
@@ -64,5 +65,9 @@ export class NoteComponent implements OnInit {
   onDragCanceled(event: DragEvent) {
 
     console.log("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
+  }
+
+  openNote() {
+    throw new Error('Method not implemented.');
   }
 }

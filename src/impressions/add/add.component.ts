@@ -61,7 +61,8 @@ export class AddComponent implements OnInit {
   }
 
   onFocusOutEvent($event: FocusEvent) {
-    if (this.notelabel?.value === '') {
+    console.log("onFocusOutEvent[" + this.notelabel?.value + "]")
+    if (!this.notelabel?.value || this.notelabel?.value === '') {
       this.inProgress = false;
     }
   }
