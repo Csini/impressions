@@ -72,7 +72,14 @@ export class LocalService {
       return [];
     }
   }
-  public removeData() {
+
+  public removeData(noteToRemove : Note) {
+    console.log("removeData: " + JSON.stringify(noteToRemove));
+    let temp : Note[]= this.getData().filter(item => noteToRemove.id!==item.id);
+    this.saveData(temp);
+  }
+
+  public removeAllData() {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.removeItem(this.store_key);
