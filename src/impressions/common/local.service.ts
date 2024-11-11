@@ -10,7 +10,7 @@ export class LocalService {
   // TODO
   private crypt_key: string = "123";
 
-  // TODO
+  // TODO versionnummer!!
   private store_key: string = "impressions";
 
   constructor() { }
