@@ -12,9 +12,6 @@ export const impressionsConfig: ApplicationConfig = {
     provideClientHydration(), provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })
+    })
   ]
 };
