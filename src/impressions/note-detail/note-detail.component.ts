@@ -117,6 +117,10 @@ export class NoteDetailComponent implements OnInit {
 
     this.rows.clear();
 
+    if(!this.note.rows){
+      this.note.rows = [];
+    }
+
     this.note.rows.forEach(rowItem => {
       let group: FormGroup = new FormGroup({
         row: new FormControl(rowItem)
