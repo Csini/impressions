@@ -18,7 +18,7 @@ export class BoardComponent implements OnInit {
 
   notes: Note[] = [];
 
-  private cancel : boolean = false;
+  private cancel: boolean = false;
 
   constructor(private localService: LocalService) {
 
@@ -57,7 +57,7 @@ export class BoardComponent implements OnInit {
   }
 
   dragItem(item: Note) {
-    if(this.cancel){
+    if (this.cancel) {
       console.log("CANCELLED dragItem: " + JSON.stringify(item));
       this.cancel = false;
       this.loadNotes();
@@ -85,20 +85,31 @@ export class BoardComponent implements OnInit {
 
     console.log("droppedRecycleBin", JSON.stringify(event, null, 2));
 
-    let note : Note = this.localService.findData(event.data);
+    let note: Note = this.localService.findData(event.data);
 
 
     if (confirm("Are you sure you want to delete Impression(" + note.label + ") ?")) {
-      console.log("Implement delete functionality here");
+      console.log("deleting...");
 
       this.localService.removeData(note);
 
       this.loadNotes();
-    }else{
+    } else {
       this.cancel = true;
       /*note.posX = 100;
       note.posY = 100;
       this.localService.changeData(note);*/
+    }
+  }
+
+  clearAll() {
+    console.log("clearAll");
+    if (confirm("Are you sure you want to delete ALL Impressions ?")) {
+      console.log("deleting ALL...");
+    
+      this.localService.removeAllData();
+
+      this.loadNotes();
     }
   }
 }

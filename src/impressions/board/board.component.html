@@ -8,7 +8,18 @@
 
 </section>
 <impressions-add (submitAddEvent)="submitAdd($event)"></impressions-add>
-<i class="bi bi-trash3-fill recycle-bin position-absolute top-0 begin-0"
-dndDropzone
-(dndDragover)="onDragoverRecycleBin($event)"
-(dndDrop)="onDropRecycleBin($event)"></i>
+<div class="dropup position-absolute top-0 begin-0 rounded-circle m-5">
+    <i 
+        class="bi bi-trash3-fill recycle-bin"
+        dndDropzone
+        (dndDragover)="onDragoverRecycleBin($event)"
+        (dndDrop)="onDropRecycleBin($event)"
+        title="drop here to delete">
+    </i>
+</div>
+<div class="dropup position-absolute bottom-0 begin-0 rounded-circle m-5">
+    <button type="button" class="btn btn-secondary btn-lg" (click)="clearAll()">
+        <i class="bi bi-x"></i>
+        <span>Clear All</span>
+    </button>
+</div>
