@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormGroupDirective, FormsModule, NgModelGroup, 
 import { RouterLink } from '@angular/router';
 import { LocalService } from '../common/local.service';
 import { Note } from '../note/note.model';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'impressions-add',
@@ -24,7 +25,7 @@ export class AddComponent implements OnInit {
   @ViewChild('notelabelInput')
   notelabelInput!: ElementRef;
 
-  constructor(private localService: LocalService, private changeDetector: ChangeDetectorRef) {
+  constructor(private logger: NGXLogger, private localService: LocalService, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class AddComponent implements OnInit {
   }
 
   beginAdd() {
-    console.log('beginAdd');
+    this.logger.debug('beginAdd');
     this.inProgress = true;
     this.changeDetector.detectChanges();
     this.notelabelInput.nativeElement.focus();
@@ -51,7 +52,7 @@ export class AddComponent implements OnInit {
       this.notelabel?.markAsTouched();
       return;
     }
-    console.log('submitForm');
+    this.logger.debug('submitForm');
     let note: Note = new Note(this.notelabel?.value);
     this.localService.addData(note);
     this.inProgress = false;
@@ -61,7 +62,7 @@ export class AddComponent implements OnInit {
   }
 
   onFocusOutEvent($event: FocusEvent) {
-    console.log("onFocusOutEvent[" + this.notelabel?.value + "]")
+    this.logger.debug("onFocusOutEvent[" + this.notelabel?.value + "]")
     if (!this.notelabel?.value || this.notelabel?.value === '') {
       this.inProgress = false;
     }

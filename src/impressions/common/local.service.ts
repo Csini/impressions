@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { Note } from '../note/note.model';
+import { NGXLogger } from 'ngx-logger';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class LocalService {
   // TODO versionnummer!!
   private store_key: string = "impressions";
 
-  constructor() { }
+  constructor(private logger: NGXLogger) {
+  }
 
   public addData(noteToAdd: Note) {
-    console.log("addData: " + JSON.stringify(noteToAdd));
+    this.logger.debug("addData: " + JSON.stringify(noteToAdd));
 
     let temp: Note[] = this.getData();
     temp.push(noteToAdd);
@@ -24,7 +26,7 @@ export class LocalService {
   }
 
   public changeData(noteToChange: Note) {
-    console.log("changeData: " + JSON.stringify(noteToChange));
+    this.logger.debug("changeData: " + JSON.stringify(noteToChange));
 
     /*
     let temp : Map<string, Note> = new Map(this.getData().map(obj => [obj.id, obj]));
@@ -32,23 +34,25 @@ export class LocalService {
     this.saveData(Array.from(temp.values()));
     */
 
-    this.saveData(this.getData().flatMap((item) => (item.id ===noteToChange.id ? noteToChange : item)));
+    this.saveData(this.getData().flatMap((item) => (item.id === noteToChange.id ? noteToChange : item)));
   }
 
   public saveData(value: Note[]) {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        console.log("saving: " + JSON.stringify(value));
+        this.logger.info("saving");
+        this.logger.debug("saving: " + JSON.stringify(value));
         localStorage.setItem(this.store_key, this.encrypt(JSON.stringify(value)));
       }
     } catch (error) {
-      console.error('Failed to save to localStorage:', error);
+      this.logger.error('Failed to save to localStorage:', error);
+      throw error;
     }
   }
 
-  public findData(id : string): Note {
-    let temp : Note| undefined= this.getData().find(item => id===item.id);
-    if(!temp){
+  public findData(id: string): Note {
+    let temp: Note | undefined = this.getData().find(item => id === item.id);
+    if (!temp) {
       throw new Error("Note " + id + " not found.");
     }
     return temp;
@@ -59,7 +63,7 @@ export class LocalService {
       if (typeof window !== 'undefined' && window.localStorage) {
         let data: string = localStorage.getItem(this.store_key) || "";
         let temp = this.decrypt(data);
-        console.log(temp);
+        this.logger.trace(temp);
         if (temp === '') {
           temp = "[]";
         }
@@ -73,9 +77,9 @@ export class LocalService {
     }
   }
 
-  public removeData(noteToRemove : Note) {
-    console.log("removeData: " + JSON.stringify(noteToRemove));
-    let temp : Note[]= this.getData().filter(item => noteToRemove.id!==item.id);
+  public removeData(noteToRemove: Note) {
+    this.logger.info("removeData: " + JSON.stringify(noteToRemove));
+    let temp: Note[] = this.getData().filter(item => noteToRemove.id !== item.id);
     this.saveData(temp);
   }
 

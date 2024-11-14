@@ -3,9 +3,9 @@ import { NoteComponent } from "../note/note.component";
 import { DndDropEvent, DndModule } from 'ngx-drag-drop';
 import { Note } from '../note/note.model';
 import { NgFor } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { LocalService } from '../common/local.service';
 import { AddComponent } from "../add/add.component";
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'impressions-board',
@@ -20,7 +20,7 @@ export class BoardComponent implements OnInit {
 
   private cancel: boolean = false;
 
-  constructor(private localService: LocalService) {
+  constructor(private logger: NGXLogger, private localService: LocalService) {
 
   }
 
@@ -39,31 +39,22 @@ export class BoardComponent implements OnInit {
 
   onDragover(event: DragEvent) {
 
-    console.log("dragover", JSON.stringify(event, null, 2));
+    this.logger.trace("dragover", JSON.stringify(event, null, 2));
   }
 
   onDrop(event: DndDropEvent) {
 
-    console.log("dropped", JSON.stringify(event, null, 2));
-
-    /*
-    //console.log(this.notes);
-    console.log(this.notes instanceof Map);
-
-    this.notes.set(event.data.id, event.data);
-    //console.log(this.notes);
-    this.localService.saveData(Array.from(this.notes.values()));
-    */
+    this.logger.trace("dropped", JSON.stringify(event, null, 2));
   }
 
   dragItem(item: Note) {
     if (this.cancel) {
-      console.log("CANCELLED dragItem: " + JSON.stringify(item));
+      this.logger.info("CANCELLED dragItem: " + item.id);
       this.cancel = false;
       this.loadNotes();
       return;
     }
-    console.log("dragItem: " + JSON.stringify(item));
+    this.logger.info("dragItem: " + item.id);
     this.localService.changeData(item);
     this.loadNotes();
   }
@@ -78,18 +69,18 @@ export class BoardComponent implements OnInit {
 
   onDragoverRecycleBin(event: DragEvent) {
 
-    console.log("dragoverRecycleBin", JSON.stringify(event, null, 2));
+    this.logger.trace("dragoverRecycleBin", JSON.stringify(event, null, 2));
   }
 
   onDropRecycleBin(event: DndDropEvent) {
 
-    console.log("droppedRecycleBin", JSON.stringify(event, null, 2));
+    this.logger.info("droppedRecycleBin", JSON.stringify(event, null, 2));
 
     let note: Note = this.localService.findData(event.data);
 
 
     if (confirm("Are you sure you want to delete Impression(" + note.label + ") ?")) {
-      console.log("deleting...");
+      this.logger.warn("deleting...");
 
       this.localService.removeData(note);
 
@@ -103,9 +94,9 @@ export class BoardComponent implements OnInit {
   }
 
   clearAll() {
-    console.log("clearAll");
+    this.logger.info("clearAll");
     if (confirm("Are you sure you want to delete ALL Impressions ?")) {
-      console.log("deleting ALL...");
+      this.logger.warn("deleting ALL...");
     
       this.localService.removeAllData();
 

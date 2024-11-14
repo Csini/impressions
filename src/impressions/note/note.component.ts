@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DndModule, EffectAllowed } from 'ngx-drag-drop';
 import { Note } from './note.model';
 import { RouterLink } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'impressions-note',
@@ -28,6 +29,9 @@ export class NoteComponent implements OnInit {
   disable = false;
   handle = false;
 
+  constructor(private logger: NGXLogger) {
+  }
+
   ngOnInit(): void {
 
 
@@ -35,36 +39,36 @@ export class NoteComponent implements OnInit {
 
   onDragStart(event: DragEvent) {
 
-    console.log("drag started: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("drag started: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDragEnd(event: DragEvent) {
 
-    console.log("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.debug("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
     this.note.posX = (event.pageX - 50);
     this.note.posY = (event.pageY - 50);
-    console.log(this.note.id + " dragged to " + event.pageX + ', ' + event.pageY);
+    this.logger.info(this.note.id + " dragged to " + event.pageX + ', ' + event.pageY);
     this.dragItemEvent.emit(this.note);
   }
 
   onDraggableCopied(event: DragEvent) {
 
-    console.log("draggable copied: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable copied: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDraggableLinked(event: DragEvent) {
 
-    console.log("draggable linked: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable linked: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDraggableMoved(event: DragEvent) {
 
-    console.log("draggable moved: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable moved: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDragCanceled(event: DragEvent) {
 
-    console.log("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   openNote() {

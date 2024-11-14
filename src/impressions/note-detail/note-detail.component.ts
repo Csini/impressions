@@ -6,6 +6,7 @@ import { JsonPipe, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DndDropEvent, DndModule, EffectAllowed } from 'ngx-drag-drop';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'impressions-note-detail',
@@ -30,11 +31,11 @@ export class NoteDetailComponent implements OnInit {
   disable = false;
   handle = false;
 
-  constructor(private localService: LocalService, private changeDetector: ChangeDetectorRef, private fb: FormBuilder) {
+  constructor(private logger: NGXLogger, private localService: LocalService, private changeDetector: ChangeDetectorRef, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    console.log('NoteDetailComponent: ' + this.id);
+    this.logger.info('NoteDetailComponent: ' + this.id);
 
     this.noteDetailForm = new FormGroup({
       label: new FormControl(this.id),
@@ -65,10 +66,10 @@ export class NoteDetailComponent implements OnInit {
   }
 
   onFocusOutRowEvent($event: Event, index: number) {
-    console.log("onFocusOutRowEvent[" + JSON.stringify($event) + ", " + index + "]");
+    this.logger.info("onFocusOutRowEvent[" + JSON.stringify($event) + ", " + index + "]");
 
     let newValue: string = this.rowValue(index);
-    console.log("newValue:" + newValue);
+    this.logger.debug("newValue:" + newValue);
 
     this.note.rows[index] = newValue;
 
@@ -79,7 +80,7 @@ export class NoteDetailComponent implements OnInit {
   }
 
   onFocusOutNewRowEvent($event: Event) {
-    console.log("onFocusOutNewRowEvent[" + this.newRow?.value + "]")
+    this.logger.info("onFocusOutNewRowEvent[" + this.newRow?.value + "]")
     if (this.newRow?.value && this.newRow?.value != '') {
       this.note.rows.push(this.newRow?.value);
       this.localService.changeData(this.note);
@@ -92,7 +93,7 @@ export class NoteDetailComponent implements OnInit {
   }
 
   onFocusOutLabelEvent($event: Event) {
-    console.log("onFocusOutLabelEvent[" + $event + "]")
+    this.logger.info("onFocusOutLabelEvent[" + $event + "]")
     this.note.label = this.label.value;
 
     this.localService.changeData(this.note);
@@ -101,7 +102,7 @@ export class NoteDetailComponent implements OnInit {
 
   deleteRow(index: number) {
 
-    console.log("deleteRow[" + index + "]")
+    this.logger.warn("deleteRow[" + index + "]")
     this.note.rows[index] = '';
 
     this.note.rows = this.note.rows.filter(function (e) { return e });
@@ -131,12 +132,12 @@ export class NoteDetailComponent implements OnInit {
   }
 
   onDragover(event: DragEvent, index: number) {
-    console.log("dragover", JSON.stringify(event, null, 2), index);
+    this.logger.trace("dragover", JSON.stringify(event, null, 2), index);
   }
 
   onDrop(event: DndDropEvent, index: number) {
 
-    console.log("dropped", JSON.stringify(event, null, 2), index);
+    this.logger.info("dropped", JSON.stringify(event, null, 2), index);
 
     let temp: string = this.note.rows[event.data];
 
@@ -152,38 +153,38 @@ export class NoteDetailComponent implements OnInit {
 
   onDragStart(event: DragEvent) {
 
-    console.log("drag started: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("drag started: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDragEnd(event: DragEvent) {
-    console.log("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("drag ended: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDraggableCopied(event: DragEvent) {
 
-    console.log("draggable copied: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable copied: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDraggableLinked(event: DragEvent) {
 
-    console.log("draggable linked: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable linked: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDraggableMoved(event: DragEvent) {
 
-    console.log("draggable moved: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("draggable moved: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
   onDragCanceled(event: DragEvent) {
 
-    console.log("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
+    this.logger.trace("drag cancelled: " + this.note.id, JSON.stringify(event, null, 2));
   }
 
 
   submitForm() {
     //do nothing
 
-    console.log("submitForm");
+    this.logger.trace("submitForm");
   }
 
 }
