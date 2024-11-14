@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NoteComponent } from "../note/note.component";
 import { DndDropEvent, DndModule } from 'ngx-drag-drop';
 import { Note } from '../note/note.model';
@@ -16,6 +16,9 @@ import { NGXLogger } from 'ngx-logger';
 })
 export class BoardComponent implements OnInit {
 
+  @Input()
+  backgroundImage!: string;
+
   notes: Note[] = [];
 
   private cancel: boolean = false;
@@ -25,6 +28,10 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if(!this.backgroundImage){
+      this.backgroundImage = "impressions_black_white_tr.png";
+    }
 
     this.loadNotes();
 
