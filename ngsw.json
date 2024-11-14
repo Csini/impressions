@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1731578160363,
+  "timestamp": 1731618309400,
   "index": "/impressions/index.html",
   "assetGroups": [
     {
@@ -13,10 +13,10 @@
       "urls": [
         "/impressions/favicon.ico",
         "/impressions/index.html",
-        "/impressions/main-YHUHOMC3.js",
+        "/impressions/main-YCQTDUA7.js",
         "/impressions/manifest.webmanifest",
         "/impressions/polyfills-FFHMD2TL.js",
-        "/impressions/styles-PBZH3OIT.css"
+        "/impressions/styles-NF5QZQ3E.css"
       ],
       "patterns": []
     },
@@ -36,6 +36,7 @@
         "/impressions/icons/icon-512x512.png",
         "/impressions/icons/icon-72x72.png",
         "/impressions/icons/icon-96x96.png",
+        "/impressions/impressions_black_white_tr.png",
         "/impressions/media/bootstrap-icons-OCU552PF.woff",
         "/impressions/media/bootstrap-icons-X6UQXWUS.woff2"
       ],
@@ -53,13 +54,14 @@
     "/impressions/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/impressions/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/impressions/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/impressions/index.html": "cbda9d7aa7b3abe15a3548193c8b3cd295725d4e",
-    "/impressions/main-YHUHOMC3.js": "64ad460914ae940eae61915e04874d76e6b57e86",
+    "/impressions/impressions_black_white_tr.png": "70102cde6c3d610076dbb3fc141d21ea08186a31",
+    "/impressions/index.html": "191df404c1929be4a63d060f1ab4bd8b0f7dea42",
+    "/impressions/main-YCQTDUA7.js": "1d5f9722e4ca750fce37524ee8e3c36782c71edc",
     "/impressions/manifest.webmanifest": "b84f6f5c8d98d28f84fa98fcb7035f9fcec9462f",
     "/impressions/media/bootstrap-icons-OCU552PF.woff": "d5831fd39baf13aff7626e483b9a089730f18604",
     "/impressions/media/bootstrap-icons-X6UQXWUS.woff2": "020c3c6f9280a315e8425d7f92e15bcd0cdda1b2",
     "/impressions/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
-    "/impressions/styles-PBZH3OIT.css": "da6c441c0df5e2fe6c5d869822280f7340717b2c"
+    "/impressions/styles-NF5QZQ3E.css": "51b8209deae10c0f2ff2c209aafbfed16afe6d41"
   },
   "navigationUrls": [
     {
