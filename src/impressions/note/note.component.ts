@@ -17,6 +17,9 @@ export class NoteComponent implements OnInit {
   @Input({ required: true })
   note: Note = new Note();
 
+  @Input({ required: true })
+  nowAddedIsOn: boolean = false;
+
   @Output()
   dragItemEvent = new EventEmitter<Note>();
 

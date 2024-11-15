@@ -66,6 +66,7 @@ $avatar-sizes: 16, 24, 32, 48, 64, 96, 128 !default;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     border: 4px black solid;
+    background-color: #bd2130;
 
     &.img-thumbnail {
         padding: 4px;

@@ -6,6 +6,7 @@ import { NgFor } from '@angular/common';
 import { LocalService } from '../common/local.service';
 import { AddComponent } from "../add/add.component";
 import { NGXLogger } from 'ngx-logger';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'impressions-board',
@@ -21,6 +22,8 @@ export class BoardComponent implements OnInit {
 
   notes: Note[] = [];
 
+  addedNoteId!: string;
+
   private cancel: boolean = false;
 
   constructor(private logger: NGXLogger, private localService: LocalService) {
@@ -29,7 +32,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(!this.backgroundImage){
+    if (!this.backgroundImage) {
       this.backgroundImage = "impressions_black_white_tr.png";
     }
 
@@ -70,8 +73,17 @@ export class BoardComponent implements OnInit {
     this.notes = this.localService.getData();
   }
 
-  submitAdd($event: any) {
+  submitAdd(addedNoteId: string) {
+    this.logger.info('addedNoteId:' + addedNoteId);
     this.loadNotes();
+
+    this.addedNoteId = addedNoteId;
+
+    timer(4000)
+      .subscribe(res => {
+        this.addedNoteId = 'empty';
+      }
+      );
   }
 
   onDragoverRecycleBin(event: DragEvent) {
@@ -104,7 +116,7 @@ export class BoardComponent implements OnInit {
     this.logger.info("clearAll");
     if (confirm("Are you sure you want to delete ALL Impressions ?")) {
       this.logger.warn("deleting ALL...");
-    
+
       this.localService.removeAllData();
 
       this.loadNotes();
