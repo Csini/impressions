@@ -10,7 +10,7 @@
 }
 
 .bimage {
-    background-image: radial-gradient(#dbdbdb, #9198e5);
+    //background-image: radial-gradient(#dbdbdb, #9198e5);
     z-index: -2;
     position: absolute;
     left: 0;
@@ -20,13 +20,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 4px #412e67;
+    //border: solid 4px #412e67;
 }
 
 .bimage img {
-    width: 60%;
-    height: 60%;
-    filter: opacity(10%);
+    width: 80vh;
+    height: 60vh;
+    filter: opacity(8%);
 }
 
 /*
