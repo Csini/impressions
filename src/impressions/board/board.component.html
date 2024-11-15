@@ -3,7 +3,9 @@
 <section dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)" class="board">
 
 
-    <impressions-note *ngFor="let n of notes" [note]="n" (dragItemEvent)="dragItem($event)"></impressions-note>
+    <impressions-note *ngFor="let n of notes" [note]="n" (dragItemEvent)="dragItem($event)"
+        [nowAddedIsOn]="n.id===addedNoteId"
+    ></impressions-note>
 
 
 </section>

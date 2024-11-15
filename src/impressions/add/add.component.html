@@ -10,7 +10,7 @@
     *ngIf="inProgress"
      class="note position-absolute bottom-0 end-0"
 >
-    <div class="avatar avatar-64 bg-danger rounded-circle text"></div>
+    <div class="avatar avatar-64 rounded-circle text"></div>
         <div class="avatar-label-triangle-wrapper">
             <div class="avatar-label-triangle"></div>
         </div> 
@@ -21,23 +21,12 @@
                 type="text"
                 id="notelabel"
                 name="notelabel"
-                class="form-control"
                 minlength="1"
                 formControlName="notelabel"
                 #notelabelInput
                 (focusout)="onFocusOutEvent($event)"
+                (keyup.enter)="onFocusOutEvent($event)"
             />
-            
-            <div
-                *ngIf="notelabel?.invalid && (notelabel?.dirty || notelabel?.touched)"
-                class="text-danger"
-            >
-                <div *ngIf="notelabel?.errors?.['minlength']">
-                Label must be at least 1 characters long.
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </span>

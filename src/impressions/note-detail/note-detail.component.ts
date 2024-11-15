@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } fr
 import { Input as RouterInput } from '@angular/core';
 import { LocalService } from '../common/local.service';
 import { Note } from '../note/note.model';
-import { JsonPipe, NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DndDropEvent, DndModule, EffectAllowed } from 'ngx-drag-drop';
@@ -11,7 +11,7 @@ import { NGXLogger } from 'ngx-logger';
 @Component({
   selector: 'impressions-note-detail',
   standalone: true,
-  imports: [RouterLink, NgFor, ReactiveFormsModule, JsonPipe, DndModule],
+  imports: [RouterLink, NgFor, ReactiveFormsModule, DndModule],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss'
 })
