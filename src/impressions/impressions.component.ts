@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BoardComponent } from "./board/board.component";
 
 @Component({
   selector: 'impressions-root',
   standalone: true,
-  imports: [RouterOutlet, BoardComponent],
+  imports: [RouterOutlet],
   templateUrl: './impressions.component.html',
   styleUrl: './impressions.component.scss'
 })
